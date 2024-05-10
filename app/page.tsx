@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import LoginButton from "@/components/ui/buttons/login";
 
 interface Repository {
   id: number;
@@ -39,35 +40,51 @@ function RepositoriesSelection() {
   };
 
   return (
-    <div>
-      <h1>Select Repositories</h1>
-      <div>
-        <h2>Your Repositories</h2>
-        {repos.map((repo) => (
-          <label key={repo.id}>
-            <input
-              type="checkbox"
-              checked={selectedRepos.some((r) => r.id === repo.id)}
-              onChange={() => handleRepoSelection(repo)}
-            />
-            {repo.name}
-          </label>
-        ))}
-      </div>
-      <div>
-        <h2>Starred Repositories</h2>
-        {starred.map((repo) => (
-          <label key={repo.id}>
-            <input
-              type="checkbox"
-              checked={selectedRepos.some((r) => r.id === repo.id)}
-              onChange={() => handleRepoSelection(repo)}
-            />
-            {repo.name}
-          </label>
-        ))}
-      </div>
-    </div>
+    <>
+      {!session && 
+        (
+          <div>
+            <LoginButton />
+          </div>
+        )
+      }
+      {session && !repos.length && !starred.length && <p>Loading...</p>}
+      {session && repos.length &&
+        (
+          <div>
+            <div>
+              <h1>Select Repositories</h1>
+              <div>
+                <h2>Your Repositories</h2>
+                {repos.map((repo) => (
+                  <label key={repo.id}>
+                    <input
+                      type="checkbox"
+                      checked={selectedRepos.some((r) => r.id === repo.id)}
+                      onChange={() => handleRepoSelection(repo)}
+                    />
+                    {repo.name}
+                  </label>
+                ))}
+              </div>
+              <div>
+                <h2>Starred Repositories</h2>
+                {starred.map((repo) => (
+                  <label key={repo.id}>
+                    <input
+                      type="checkbox"
+                      checked={selectedRepos.some((r) => r.id === repo.id)}
+                      onChange={() => handleRepoSelection(repo)}
+                    />
+                    {repo.name}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </>
   );
 }
 

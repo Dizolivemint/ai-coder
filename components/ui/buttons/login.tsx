@@ -16,7 +16,6 @@ const LoginButton: React.FC = () => {
   } else {
     return (
       <div>
-        <p>You are not signed in.</p>
         <button onClick={() => signIn("github")}>Sign in with GitHub</button>
       </div>
     );

@@ -1,20 +1,7 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/components/auth/authOptions"
 import { getToken } from "next-auth/jwt"
 import { NextApiRequest } from "next"
 
-type Session = {
-  user: {
-    name: string
-    email: string
-    image: string
-    username: string
-  }
-}
-
 export async function GET(req: NextApiRequest) {
-  const session: Session | null = await getServerSession(authOptions)
-  const username: string = session?.user?.username || ''
   const token = await getToken({ req })
   if (!token) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
@@ -26,7 +13,7 @@ export async function GET(req: NextApiRequest) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
   }
 
-  const url = `https://api.github.com/users/${username}/repos`;
+  const url = `https://api.github.com/user/starred`;
 
   const headers = {
     'Authorization': `Bearer ${accessToken}`,
