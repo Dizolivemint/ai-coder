@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Angel AI
 
-## Getting Started
+This application allows users to talk annd compare GitHub repositories. It uses Next.js, NextAuth.js for authentication with GitHub OAuth, and the GitHub API.
 
-First, run the development server:
+## Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Before you begin, ensure you have the following:
+- Node.js installed (v12.x or later)
+- npm (usually comes with Node.js)
+- A GitHub account
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Initial Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Follow these steps to set up the application:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 1. Clone the Repository
 
-## Learn More
+First, clone the repository to your local machine
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Install Dependencies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Run the following command in the root directory of your project to install the necessary dependencies:
 
-## Deploy on Vercel
+```npm install```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 3. Create GitHub OAuth Credentials
+
+To authenticate users via GitHub, you need to create OAuth credentials:
+
+- Go to your GitHub account settings
+- Navigate to **Developer settings** > **OAuth Apps** > **New OAuth App**
+- Fill in the **Application name**, **Homepage URL**, and **Authorization callback URL**. For local development, use `http://localhost:3000/api/auth/callback/github` for the callback URL.
+- Click **Register application**
+- After registration, you will get a **Client ID** and **Client Secret**
+
+### 4. Generate a NextAuth Secret
+
+The `NEXTAUTH_SECRET` is used to encrypt and verify tokens and session cookies. Generate a secure secret using Node.js:
+
+```node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"```
+
+
+### 5. Configure Your `.env.local`
+
+Create a `.env.local` file in the root of your project and add your GitHub credentials and the NextAuth secret:
+
+GITHUB_ID=your_github_client_id_here
+GITHUB_SECRET=your_github_client_secret_here
+NEXTAUTH_SECRET=your_generated_nextauth_secret_here
+
+
+Replace `your_github_client_id_here`, `your_github_client_secret_here`, and `your_generated_nextauth_secret_here` with your actual GitHub Client ID, GitHub Client Secret, and generated NextAuth secret.
+
+## Running the Application
+
+To run the application locally, execute:
+
+```npm run dev```
