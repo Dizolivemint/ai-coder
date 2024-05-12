@@ -1,4 +1,4 @@
-# Angel AI
+# My Cuddly Coding Buddy
 
 This application allows users to talk annd compare GitHub repositories. It uses Next.js, NextAuth.js for authentication with GitHub OAuth, and the GitHub API.
 
