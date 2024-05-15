@@ -3,11 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import LoginButton from "@/components/ui/buttons/login";
-
-interface Repository {
-  id: number;
-  name: string;
-}
+import Repository from "@/models/repository";
 
 function RepositoriesSelection() {
   const { data: session } = useSession();
@@ -37,6 +33,16 @@ function RepositoriesSelection() {
       }
       return [...prev, repo];
     });
+  };
+
+  const handleProcessRepos = async () => {
+    const repo = selectedRepos[0];
+    fetch(`/api/content/${repo.owner.login}/${repo.name}`, {
+      method: "GET"
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch(console.error);
   };
 
   return (
@@ -79,6 +85,13 @@ function RepositoriesSelection() {
                     {repo.name}
                   </label>
                 ))}
+              </div>
+              <div>
+                <button
+                  onClick={() => handleProcessRepos()}
+                >
+                  Save Selection
+                </button>
               </div>
             </div>
           </div>

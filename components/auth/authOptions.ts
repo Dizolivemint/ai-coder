@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
       clientId,
       clientSecret,
       authorization: {
-        params: { scope: 'read:user, repo, starring: read' }, // Scope to read user information
+        params: { scope: 'read:user, repo, starring: read, contents:read' }, // Scope to read user information
       },
     }),
   ],

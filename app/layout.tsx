@@ -7,8 +7,8 @@ import SessionWrapper from '@/components/auth/sessionWrapper';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Angel AI",
-  description: "Angel that codes and mentors you to coding heaven",
+  title: "My Cuddly Coding Buddy 🐱‍💻",
+  description: "Cuddly buddy that helps you code, write docs, and more! 🐱‍💻",
 };
 
 export default function RootLayout({
