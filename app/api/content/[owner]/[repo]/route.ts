@@ -95,7 +95,10 @@ async function processFile(file: RepoFile) {
     const content = buffer.toString('utf-8');
 
     // Initialize the language model and embeddings
-    const model = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const model = new OpenAI({ 
+      apiKey: process.env.OPENAI_API_KEY,
+      model: 'text-embedding-ada-002'
+    });
     const embeddings = new OpenAIEmbeddings(model);
 
     // Vectorize the file content
